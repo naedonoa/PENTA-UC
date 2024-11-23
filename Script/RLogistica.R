@@ -2,14 +2,14 @@
 # Cargar las bibliotecas necesarias. Recordar que si no tenemos instaladas estas librerías, primero tenemos que instalarlas
 library(readxl)      # Para leer archivos Excel
 library(ggplot2)     # Para visualizaciones
-library(dplyr)       # Para manipulaci\u00f3n de datos
-library(corrplot)    # Para matrices de correlaci\u00f3n
-library(car)         # Para diagn\u00f3sticos adicionales
+library(dplyr)       # Para manipulación de datos
+library(corrplot)    # Para matrices de correlación
+library(car)         # Para diagnósticos adicionales
 
 # 2. CARGA DE DATOS
-# Leemos el archivo Excel y mostramos las primeras filas
+# Leemos el archivo Excel que contiene nuestros datos 
 file.choose()
-datos <- read_excel("/Users/noeaedonoa/Desktop/CLASES/Cranial_Measurements.xlsx")
+datos <- read_excel("/Users/noeaedonoa/Desktop/CLASES/Cranial_Measurements.xlsx") #esta corresponde a la ruta de mi computador.
 
 
 # 3. ANÁLISIS DESCRIPTIVO
@@ -32,10 +32,10 @@ corrplot(cor_matrix,
          tl.col="black",      # Color del texto
          tl.srt=45,           # Rotación del texto
          title="Matriz de Correlaciones",
-         mar=c(0,0,1,0))      # M\u00e1rgenes
+         mar=c(0,0,1,0))      # Márgenes
 
 # 5. VISUALIZACIÓN DE DISTRIBUCIONES
-# Crear gráficos de caja para cada medida craneal según la clasificación
+# Crear gráficos de caja (o box plot) para cada medida craneal según la clasificación
 
 # Gráfico para Longitud Craneal
 p1 <- ggplot(datos, aes(x=factor(Correct_Classification), 
@@ -69,7 +69,7 @@ p3 <- ggplot(datos, aes(x=factor(Correct_Classification),
                         fill=factor(Correct_Classification))) +
   geom_boxplot() +
   labs(title="Altura Facial por Clasificación",
-       x="CClasificación (0=Incorrecta, 1=Correcta)",
+       x="Clasificación (0=Incorrecta, 1=Correcta)",
        y="Altura Facial (mm)") +
   scale_fill_discrete(name="Clasificación", 
                       labels=c("Incorrecta", "Correcta")) +
@@ -111,7 +111,7 @@ print("\
 Matriz de confusión")
 print(tabla_confusion)
 
-# Calcular métricas de rendimiento
+# Calcular métricas de rendimiento. Este paso final es fundamental, ya que con esto sabremos si nuestro modelo a partir de mediciones creaneales es adecuado o no 
 precision <- sum(diag(tabla_confusion)) / sum(tabla_confusion)
 print("\
 Precisión del modelo:")
